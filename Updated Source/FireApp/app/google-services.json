@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "292683660299",
+    "firebase_url": "https://locus-1b5e9.firebaseio.com",
+    "project_id": "locus-1b5e9",
+    "storage_bucket": "locus-1b5e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292683660299:android:edd1a48dcb5c1c1f",
+        "android_client_info": {
+          "package_name": "com.example.sowmith.fireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292683660299-q4vos418v6d6fft9kjnepgn07q2aangt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sowmith.fireapp",
+            "certificate_hash": "2b51d4687d3917ece06b6e4a64bde33dec463895"
+          }
+        },
+        {
+          "client_id": "292683660299-8cohpvu5qro18j9vsu2g2a5ma8pu8475.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD8cv9GvYohRnjSHPeyy7mUpbXzENAI-s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292683660299-8cohpvu5qro18j9vsu2g2a5ma8pu8475.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
