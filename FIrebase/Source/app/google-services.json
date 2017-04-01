@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "906606668225",
+    "firebase_url": "https://locus-4bb34.firebaseio.com",
+    "project_id": "locus-4bb34",
+    "storage_bucket": "locus-4bb34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906606668225:android:0a1166aeedfb6e68",
+        "android_client_info": {
+          "package_name": "com.example.application.locus_proj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906606668225-37rjpj4adt1u67hr4c00smihhrp8e706.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA70T7_tLLF5mrd65BxKgcYL_UjV1Cz5SU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

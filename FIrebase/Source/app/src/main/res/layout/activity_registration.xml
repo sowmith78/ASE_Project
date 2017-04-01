@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.application.locus_proj.RegistrationActivity"
+    android:background="@drawable/first">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="80dp"
+        android:id="@+id/editText1"
+        android:hint="Enter Username"
+        android:textColorLink="@android:color/transparent"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginTop="37dp"
+        android:id="@+id/pass1"
+        android:hint="Enter Password"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/editText1"
+        android:layout_alignStart="@+id/editText1" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_below="@+id/pass1"
+        android:layout_alignStart="@+id/pass1"
+        android:layout_marginTop="29dp"
+        android:id="@+id/confpsw"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/cardview_light_background"
+        android:hint="Confirm Password" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:background="@android:drawable/checkbox_off_background"
+        android:onClick="onRegister"
+        android:layout_marginBottom="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:layout_marginTop="38dp"
+        android:id="@+id/phone"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/cardview_light_background"
+        android:hint="Enter Phone number"
+        android:layout_below="@+id/confpsw"
+        android:layout_alignStart="@+id/confpsw" />
+
+</RelativeLayout>
