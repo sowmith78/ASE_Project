@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "925465137048",
+    "firebase_url": "https://finalproject-a9278.firebaseio.com",
+    "project_id": "finalproject-a9278",
+    "storage_bucket": "finalproject-a9278.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925465137048:android:63499471b4e8d209",
+        "android_client_info": {
+          "package_name": "com.example.satheeshchandra.storageservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925465137048-d8nioufp70sk05bsij0jpnkgb57h2tak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbVMjhXCn4DuToeNYRAmcM3rA_fPGlqjQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
