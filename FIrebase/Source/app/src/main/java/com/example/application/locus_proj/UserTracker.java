@@ -66,6 +66,7 @@ public class UserTracker extends AppCompatActivity {
         Intent i=new Intent(UserTracker.this,MapsActivity.class);
         i.putExtra("latitude",latitude);
         i.putExtra("longitude", longitude);
+        i.putExtra("class","usertracker");
         startActivity(i);
     }
     @Override
@@ -83,14 +84,15 @@ public class UserTracker extends AppCompatActivity {
     private void enable_buttons(){
         start_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Toast.makeText(UserTracker.this,"button clicked",Toast.LENGTH_SHORT).show();
-                Intent i= new Intent(getApplicationContext(),LocationHelper.class);
+                Toast.makeText(UserTracker.this," start button clicked",Toast.LENGTH_SHORT).show();
+                Intent i= new Intent(UserTracker.this,LocationHelper.class);
                 startService(i);
             }
         });
         stop_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent i= new Intent(getApplicationContext(),LocationHelper.class);
+                Toast.makeText(UserTracker.this," stop button clicked",Toast.LENGTH_SHORT).show();
+                Intent i= new Intent(UserTracker.this,LocationHelper.class);
                 stopService(i);
             }
         });

@@ -71,22 +71,10 @@ public class FavoriteLocationManager extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
                         final String item = (String) parent.getItemAtPosition(position);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            view.animate().setDuration(2000).alpha(0)
-                                    .withEndAction(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            list.remove(item);
-                                            //Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                                            //EditText editText = (EditText) findViewById(R.id.editText);
-                                            // String message = editText.getText().toString();
-                                            //intent.putExtra(EXTRA_MESSAGE,list.remove(item));
-                                            //startActivity(intent);
-                                            adapter.notifyDataSetChanged();
-                                            view.setAlpha(1);
-                                        }
-                                    });
-                        }
+                        Intent i= new Intent(FavoriteLocationManager.this,MapsActivity.class);
+                        i.putExtra("Place",item);
+                        i.putExtra("class","Favlocation");
+                        startActivity(i);
                     }
 
                 });
