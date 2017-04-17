@@ -20,12 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email2;
     private EditText passwrd2;
     private FirebaseAuth firebaseAuth;
+    String user;
+    //String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         email2 = (EditText)findViewById(R.id.edittext11);
         passwrd2 = (EditText)findViewById(R.id.pass2);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -41,9 +42,13 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if (task.isSuccessful()){
+                    user=email2.getText().toString();
                     Toast.makeText(LoginActivity.this, "Login Successful  ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"in login activty "+user, Toast.LENGTH_SHORT ).show();
                     Intent i = new Intent(LoginActivity.this, Home.class);
+                    i.putExtra("id",user);
                     startActivity(i);
+
                 }
 
                 else {

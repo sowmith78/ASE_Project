@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mytheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">?android:attr/colorPrimary</item>
+        <item name="android:windowBackground">?attr/colorBackgroundFloating</item>
+    </style>
+
 </resources>

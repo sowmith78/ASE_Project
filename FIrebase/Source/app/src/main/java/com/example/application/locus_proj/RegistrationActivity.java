@@ -33,7 +33,6 @@ public class RegistrationActivity extends AppCompatActivity {
         confpswd = (EditText)findViewById(R.id.confpsw);
         phonenum = (EditText)findViewById(R.id.phone);
         firebaseAuth = FirebaseAuth.getInstance();
-
     }
 
 
@@ -64,8 +63,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
-
-
                             if (task.isSuccessful()) {
                                 Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);

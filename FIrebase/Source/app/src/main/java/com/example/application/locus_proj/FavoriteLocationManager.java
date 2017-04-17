@@ -28,7 +28,8 @@ public class FavoriteLocationManager extends AppCompatActivity {
     String[] values = new String[] {};
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private String id;
+    public String user;
+    //Bundle extras;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +37,9 @@ public class FavoriteLocationManager extends AppCompatActivity {
         setContentView(R.layout.activity_favorite_location_manager);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        Intent intent = getIntent();
+        user = intent.getStringExtra("user");
+        Toast.makeText(FavoriteLocationManager.this,"in Fav activty "+user, Toast.LENGTH_SHORT ).show();
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -57,12 +61,9 @@ public class FavoriteLocationManager extends AppCompatActivity {
                 for (int i = 0; i < values.length; ++i) {
                     list.add(values[i]);
                 }
+                myRef.child("users").child("rohithkumar").child("FavouriteLocations").setValue(list);
                 list.add(place.getName()+": "+String.valueOf(place.getAddress()));
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-                //id=myRef.push().getKey();
-                //Locationlist lt=new Locationlist(id,list);
-                //myRef.child(id).setValue(lt);
-                //displaying locations
                 final StableArrayAdapter adapter = new StableArrayAdapter(this,
                         android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
@@ -79,7 +80,14 @@ public class FavoriteLocationManager extends AppCompatActivity {
 
                 });
             }
+            else {
+                  Toast.makeText(FavoriteLocationManager.this,"I am worried", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+    public void addMoreLocations(View view){
+        Intent i= new Intent(FavoriteLocationManager.this, FavoriteLocationManager.class);
+    startActivity(i);
     }
     @Override
     public void onBackPressed() {
