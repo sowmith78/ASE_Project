@@ -29,7 +29,7 @@ public class FavoriteLocationManager extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     public String user;
-    //Bundle extras;
+    String muid;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,6 +39,7 @@ public class FavoriteLocationManager extends AppCompatActivity {
         myRef = database.getReference();
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
+        muid=user.replace(".","@");
         Toast.makeText(FavoriteLocationManager.this,"in Fav activty "+user, Toast.LENGTH_SHORT ).show();
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         try {
@@ -58,11 +59,13 @@ public class FavoriteLocationManager extends AppCompatActivity {
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("%s is successfully added to your favourite location", place.getName());
                 final ListView listview = (ListView) findViewById(R.id.listview);
-                for (int i = 0; i < values.length; ++i) {
+                for (int i = 0; i < values.length; ++i)
+                {
                     list.add(values[i]);
                 }
-                myRef.child("users").child("rohithkumar").child("FavouriteLocations").setValue(list);
                 list.add(place.getName()+": "+String.valueOf(place.getAddress()));
+                myRef.child("users").child(muid).child("favoritelocation").push().setValue(list);
+
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
                 final StableArrayAdapter adapter = new StableArrayAdapter(this,
                         android.R.layout.simple_list_item_1, list);
@@ -85,10 +88,13 @@ public class FavoriteLocationManager extends AppCompatActivity {
             }
         }
     }
-    public void addMoreLocations(View view){
+    public void addMoreLocations(View view)
+    {
         Intent i= new Intent(FavoriteLocationManager.this, FavoriteLocationManager.class);
-    startActivity(i);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
