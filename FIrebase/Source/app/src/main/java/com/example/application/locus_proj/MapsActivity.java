@@ -39,6 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Double latitude;
     Double longitude;
     String message;
+    ArrayList<String> x;
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         Toast.makeText(MapsActivity.this," ",Toast.LENGTH_SHORT).show();
         if (extras != null) {
             source=extras.getString("class");
             lat = extras.getDouble("latitude");
             lan= extras.getDouble("longitude");
             message=extras.getString("Place");
+
+
+
+
         }
     }
 
@@ -71,18 +77,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         if(source.equals("usertracker")) {
-            Toast.makeText(MapsActivity.this, "In Maps onMap Ready functiom", Toast.LENGTH_SHORT);
+            Toast.makeText(MapsActivity.this, "In Maps onMap Ready function", Toast.LENGTH_SHORT);
             LatLng sydney = new LatLng(lat, lan);
             mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             mMap.setMaxZoomPreference(15);
         }
-        else{
+        else if (source.equals("Favlocation")){
             try {
                 Geocoder geocoder= new Geocoder(this);
                 lst= geocoder.getFromLocationName(message,1);
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printStackTrace();     
             }
             for(Address address:lst){
                 latitude=address.getLatitude();
@@ -92,6 +98,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(sydney).title("address"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
+        }
+        else {
+            String favloc[] = new String[(extras.getStringArrayList("arraylist").size())-2];
+             for(int i=0;i<extras.getStringArrayList("arraylist").size();i++)
+             {
+                 if (i==0)
+                 {
+                     latitude=Double.parseDouble(extras.getStringArrayList("arraylist").get(i));
+
+                 }
+                 else if (i==1)
+                 {
+                     longitude=Double.parseDouble(extras.getStringArrayList("arraylist").get(i));
+                 }
+                 else
+                 {
+                     favloc[i-2]=extras.getStringArrayList("arraylist").get(i).toString();
+
+                 }
+             }
+            LatLng sydney = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(sydney).title("current location"));
+            try {
+
+                for(int i=2;i<extras.getStringArrayList("arraylist").size();i++) {
+                    Geocoder geocoder= new Geocoder(this);
+                    lst.clear();
+                    lst= geocoder.getFromLocationName(favloc[i-2],1);
+                    for(Address address:lst){
+                        latitude=address.getLatitude();
+                        longitude=address.getLongitude();
+                        sydney = new LatLng(latitude, longitude);
+                        Toast.makeText(MapsActivity.this,"Value showed in map"+latitude+" "+longitude, Toast.LENGTH_SHORT).show();
+                        mMap.addMarker(new MarkerOptions().position(sydney).title(favloc[i-2]));
+                       // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                    }
+
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
         }
     }
 }

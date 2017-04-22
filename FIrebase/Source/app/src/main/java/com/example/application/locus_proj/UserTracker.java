@@ -53,9 +53,6 @@ public class UserTracker extends AppCompatActivity {
                     latitude=Double.parseDouble(cdn[0]);
                     longitude=Double.parseDouble(cdn[1]);
                     CoordinatesTracker ct=new CoordinatesTracker(id,latitude,longitude );
-                    /*ArrayList<String> al = new ArrayList<String>();
-                    al.add("Hyderabad");
-                    al.add("Kansas");*/
                     myRef.child("users").child(muid).child("coordinates").setValue(ct);
                     tv.append("\n"+"Latitude:"+latitude+"Longitude:"+longitude);
                 }
