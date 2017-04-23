@@ -19,6 +19,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class UserTracker extends AppCompatActivity {
     private Button start_btn;
     private Button stop_btn;
@@ -27,6 +31,7 @@ public class UserTracker extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private String id;
+    private String uid;
     private double latitude;
     private double longitude;
     private Button button_map;
@@ -41,13 +46,14 @@ public class UserTracker extends AppCompatActivity {
                     tv=(TextView) findViewById(R.id.coordinates_lbl);
                     database = FirebaseDatabase.getInstance();
                     myRef = database.getReference();
+                    String muid=uid.replace(".","@");
                     String s=(String) intent.getExtras().get("coordinates");
                     String[] cdn=s.split(" ");
                     id=myRef.push().getKey();
                     latitude=Double.parseDouble(cdn[0]);
                     longitude=Double.parseDouble(cdn[1]);
                     CoordinatesTracker ct=new CoordinatesTracker(id,latitude,longitude );
-                    myRef.child(id).setValue(ct);
+                    myRef.child("users").child(muid).child("coordinates").setValue(ct);
                     tv.append("\n"+"Latitude:"+latitude+"Longitude:"+longitude);
                 }
             };
@@ -66,6 +72,7 @@ public class UserTracker extends AppCompatActivity {
         Intent i=new Intent(UserTracker.this,MapsActivity.class);
         i.putExtra("latitude",latitude);
         i.putExtra("longitude", longitude);
+        i.putExtra("class","usertracker");
         startActivity(i);
     }
     @Override
@@ -76,6 +83,8 @@ public class UserTracker extends AppCompatActivity {
         start_btn=(Button) findViewById(R.id.start_btn);
         stop_btn=(Button) findViewById(R.id.stop_btn);
         button_map=(Button) findViewById(R.id.button_map);
+        Intent intent = getIntent();
+        uid=intent.getStringExtra("user");
         if(!runtime_permissions())
             enable_buttons();
     }
@@ -83,14 +92,15 @@ public class UserTracker extends AppCompatActivity {
     private void enable_buttons(){
         start_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Toast.makeText(UserTracker.this,"button clicked",Toast.LENGTH_SHORT).show();
-                Intent i= new Intent(getApplicationContext(),LocationHelper.class);
+                Toast.makeText(UserTracker.this," start button clicked",Toast.LENGTH_SHORT).show();
+                Intent i= new Intent(UserTracker.this,LocationHelper.class);
                 startService(i);
             }
         });
         stop_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent i= new Intent(getApplicationContext(),LocationHelper.class);
+                Toast.makeText(UserTracker.this," stop button clicked",Toast.LENGTH_SHORT).show();
+                Intent i= new Intent(UserTracker.this,LocationHelper.class);
                 stopService(i);
             }
         });
@@ -116,3 +126,5 @@ public class UserTracker extends AppCompatActivity {
         }
     }
 }
+
+

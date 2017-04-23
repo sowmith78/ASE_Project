@@ -28,7 +28,8 @@ public class FavoriteLocationManager extends AppCompatActivity {
     String[] values = new String[] {};
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private String id;
+    public String user;
+    String muid;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +37,10 @@ public class FavoriteLocationManager extends AppCompatActivity {
         setContentView(R.layout.activity_favorite_location_manager);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        Intent intent = getIntent();
+        user = intent.getStringExtra("user");
+        muid=user.replace(".","@");
+        Toast.makeText(FavoriteLocationManager.this,"in Fav activty "+user, Toast.LENGTH_SHORT ).show();
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -54,15 +59,14 @@ public class FavoriteLocationManager extends AppCompatActivity {
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("%s is successfully added to your favourite location", place.getName());
                 final ListView listview = (ListView) findViewById(R.id.listview);
-                for (int i = 0; i < values.length; ++i) {
+                for (int i = 0; i < values.length; ++i)
+                {
                     list.add(values[i]);
                 }
                 list.add(place.getName()+": "+String.valueOf(place.getAddress()));
+                myRef.child("users").child(muid).child("favoritelocation").push().setValue(list);
+
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-                //id=myRef.push().getKey();
-                //Locationlist lt=new Locationlist(id,list);
-                //myRef.child(id).setValue(lt);
-                //displaying locations
                 final StableArrayAdapter adapter = new StableArrayAdapter(this,
                         android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
@@ -71,28 +75,26 @@ public class FavoriteLocationManager extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
                         final String item = (String) parent.getItemAtPosition(position);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            view.animate().setDuration(2000).alpha(0)
-                                    .withEndAction(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            list.remove(item);
-                                            //Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                                            //EditText editText = (EditText) findViewById(R.id.editText);
-                                            // String message = editText.getText().toString();
-                                            //intent.putExtra(EXTRA_MESSAGE,list.remove(item));
-                                            //startActivity(intent);
-                                            adapter.notifyDataSetChanged();
-                                            view.setAlpha(1);
-                                        }
-                                    });
-                        }
+                        Intent i= new Intent(FavoriteLocationManager.this,MapsActivity.class);
+                        i.putExtra("Place",item);
+                        i.putExtra("class","Favlocation");
+                        startActivity(i);
                     }
 
                 });
             }
+            else {
+                  Toast.makeText(FavoriteLocationManager.this,"I am worried", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+    public void addMoreLocations(View view)
+    {
+        Intent i= new Intent(FavoriteLocationManager.this, FavoriteLocationManager.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
